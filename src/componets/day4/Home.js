@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Profile from "./Profile";
 import axios from "axios";
 
-const Home = () => {
+const Home = (props) => {
   const [post, setPost] = useState({});
+  const [showProfile, setShowProfile] = useState(false);
 
   const [userId, setuserId] = useState(1);
 
@@ -14,7 +15,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log("Calling Useeffect");
     axios.get(URL).then((response) => {
       const { data } = response;
 
@@ -24,15 +24,26 @@ const Home = () => {
         content: body,
       });
     });
-  }, []);
+  }, [URL]);
+
+  const goToProfile = () => {
+    setShowProfile(true);
+  };
 
   return (
     <>
-      <h1>This is Home Page {new Date().getMilliseconds()}</h1>
-      <p>The Tile of Post is {post.title}</p>
-      <p>The Content of Post is {post.content}</p>
+      {!showProfile && (
+        <>
+          <h1>Welcome User </h1>
+          <span style={{ fontWeight: "bold" }}>{post.title}</span>
+          <p>The Content of Post is {post.content}</p>
 
-      <button onClick={handleAction}>Get New Post Id</button>
+          <button onClick={handleAction}>Get New Post Id</button>
+          <button onClick={goToProfile}>My Profile</button>
+        </>
+      )}
+
+      {showProfile && <Profile></Profile>}
     </>
   );
 };
