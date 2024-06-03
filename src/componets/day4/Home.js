@@ -1,27 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import Profile from "./Profile";
 import axios from "axios";
+import Posts from "../day6/Posts";
+import { UserContext } from "../day5/Login";
 
-const Home = (props) => {
-  const [post, setPost] = useState({});
+const Home = () => {
+  const [comment, setComment] = useState({});
   const [showProfile, setShowProfile] = useState(false);
 
-  const [userId, setuserId] = useState(1);
+  const [postId, setPostId] = useState(1);
+  const [user, setUser] = useState(useContext(UserContext));
 
-  let URL = `https://jsonplaceholder.typicode.com/posts/1`;
+  const URL = `https://jsonplaceholder.typicode.com/comments/${postId}`;
 
-  const handleAction = () => {
-    setuserId(userId + 1);
+  const getNewComment = () => {
+    setPostId(postId + 1);
+    const USERAPIURL = `https://jsonplaceholder.typicode.com/posts/${postId}`;
+    axios.get(USERAPIURL).then(({ data }) => setUser(data));
   };
 
   useEffect(() => {
     axios.get(URL).then((response) => {
       const { data } = response;
 
-      const { title, body } = data;
-      setPost({
-        title,
-        content: body,
+      const { name, body } = data;
+      setComment({
+        title: name,
+        body,
       });
     });
   }, [URL]);
@@ -34,12 +39,16 @@ const Home = (props) => {
     <>
       {!showProfile && (
         <>
-          <h1>Welcome User </h1>
-          <span style={{ fontWeight: "bold" }}>{post.title}</span>
-          <p>The Content of Post is {post.content}</p>
+          <h1>Random NewsFeed </h1>
+          <span style={{ fontWeight: "bold" }}>{comment.title}</span>
+          <p>The Content of Post is {comment.body}</p>
 
-          <button onClick={handleAction}>Get New Post Id</button>
+          <button onClick={getNewComment}>Get Radom Comment</button>
           <button onClick={goToProfile}>My Profile</button>
+
+          <h1>Application Posts</h1>
+          <hr></hr>
+          <Posts user={user}></Posts>
         </>
       )}
 

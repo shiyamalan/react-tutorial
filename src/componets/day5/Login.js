@@ -92,8 +92,6 @@ const Login = () => {
   };
 
   const renderHomePage = () => {
-    console.log("Render Home Page");
-
     return (
       <>
         <UserContext.Provider value={user}>
