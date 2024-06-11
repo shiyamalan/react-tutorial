@@ -16,10 +16,10 @@ const Post = (props) => {
 
   return (
     <>
-      <ul>
-        <li>Post Title {post?.title}</li>
-        <li>Post {post?.body}</li>
-        <li>Author {author?.name}</li>
+      <ul key={`${post?.id}`}>
+        <li key={`${post?.id}_title`}>Post Title {post?.title}</li>
+        <li key={`${post?.id}_body`}>Post {post?.body}</li>
+        <li key={`${post?.id}_author`}>Author {author?.name}</li>
       </ul>
     </>
   );

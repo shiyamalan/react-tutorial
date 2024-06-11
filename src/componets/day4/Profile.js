@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { UserContext } from "../day5/Login";
 
-const Profile = () => {
+const Profile = (props) => {
   const user = useContext(UserContext);
   console.log("User inside profile page", user);
 
@@ -16,4 +16,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default memo(Profile);

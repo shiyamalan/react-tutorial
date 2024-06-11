@@ -5,6 +5,7 @@ import Profile from "./componets/day4/Profile";
 import Contact from "./componets/day4/Contact";
 import About from "./componets/day4/About";
 import Login from "./componets/day5/Login";
+import Counter from "./componets/day7/Counter";
 
 export default function App() {
   return (
@@ -21,4 +22,4 @@ export default function App() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(<Counter />);
